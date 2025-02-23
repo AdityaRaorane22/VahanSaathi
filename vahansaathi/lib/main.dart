@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'screens/splash_screen.dart';
+import 'screens/queue_screen.dart';
+import 'screens/login_screen.dart'; // Ensure login exists
 import 'utils/theme.dart';
 
 void main() {
@@ -14,7 +16,12 @@ class VahanSaathiApp extends StatelessWidget {
     return MaterialApp(
       title: 'VahanSaathi',
       theme: appTheme,
-      home: const SplashScreen(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const SplashScreen(),
+        '/queue': (context) => const QueueScreen(),
+        '/login': (context) => const LoginScreen(), // Ensure this exists
+      },
     );
   }
 }
