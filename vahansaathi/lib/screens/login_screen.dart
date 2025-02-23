@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vahansaathi/screens/home_screen.dart';
 import 'package:vahansaathi/screens/singup_screen.dart';
 import '../components/text_input_field.dart';
 import '../components/custom_button.dart';
@@ -19,7 +20,15 @@ class LoginScreen extends StatelessWidget {
               const TextInputField(label: 'Username'),
               const TextInputField(label: 'Password', obscureText: true),
               const SizedBox(height: 20),
-              CustomButton(text: 'Login', onPressed: () {}),
+              CustomButton(
+                text: 'Login',
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomeScreen()),
+                  );
+                },
+              ),
               TextButton(
                 onPressed: () {
                   Navigator.push(
