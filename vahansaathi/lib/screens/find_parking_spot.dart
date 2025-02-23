@@ -1,28 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'map_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FindParkingSpotScreen extends StatelessWidget {
-  const FindParkingSpotScreen({super.key});
+  FindParkingSpotScreen({super.key});
 
-  final List<Map<String, dynamic>> parkingSpots = const [
+  // Sample real-world parking locations (within 200m radius)
+  final List<Map<String, dynamic>> parkingSpots = [
     {
-      "name": "City Mall Parking",
-      "location": LatLng(19.0748, 72.8856),
+      "name": "Mall Parking",
+      "lat": 19.0760,
+      "lng": 72.8777,
       "price": "₹50/hr",
-      "distance": "150m",
     },
     {
-      "name": "Sunshine Plaza",
-      "location": LatLng(19.0805, 72.8773),
-      "price": "₹40/hr",
-      "distance": "180m",
-    },
-    {
-      "name": "Green Street Parking",
-      "location": LatLng(19.0683, 72.8794),
+      "name": "Apartment Garage",
+      "lat": 19.0785,
+      "lng": 72.8752,
       "price": "₹30/hr",
-      "distance": "200m",
+    },
+    {
+      "name": "Street Parking",
+      "lat": 19.0745,
+      "lng": 72.8790,
+      "price": "₹20/hr",
     },
   ];
 
@@ -30,86 +32,83 @@ class FindParkingSpotScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Find Parking Spot")),
-      body: Column(
+      body: FlutterMap(
+        options: MapOptions(
+          center: LatLng(19.0760, 72.8777), // Center of the map
+          zoom: 16.0, // Adjust zoom for better visibility
+        ),
         children: [
-          // Map section
-          const Expanded(
-            flex: 2,
-            child: MapScreen(),
+          TileLayer(
+            urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
           ),
-
-          // Parking Spots List
-          Expanded(
-            flex: 1,
-            child: ListView.builder(
-              padding: const EdgeInsets.all(12),
-              itemCount: parkingSpots.length,
-              itemBuilder: (context, index) {
-                final spot = parkingSpots[index];
-                return Card(
-                  margin: const EdgeInsets.symmetric(vertical: 8),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: ListTile(
-                    leading: const Icon(Icons.local_parking, color: Colors.blue, size: 40),
-                    title: Text(spot["name"], style: const TextStyle(fontWeight: FontWeight.bold)),
-                    subtitle: Text("${spot["distance"]} • ${spot["price"]}"),
-                    trailing: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      onPressed: () {
-                        _showParkingDetails(context, spot);
-                      },
-                      child: const Text("View"),
-                    ),
-                  ),
-                );
-              },
-            ),
+          MarkerLayer(
+            markers: parkingSpots.map((spot) {
+              return Marker(
+                point: LatLng(spot["lat"], spot["lng"]),
+                width: 50,
+                height: 50,
+                child: GestureDetector(
+                  onTap: () => _showParkingDetails(context, spot),
+                  child: const Icon(Icons.local_parking, size: 40, color: Colors.green),
+                ),
+              );
+            }).toList(),
           ),
         ],
       ),
     );
   }
 
+  // Show details of the parking spot
   void _showParkingDetails(BuildContext context, Map<String, dynamic> spot) {
     showModalBottomSheet(
       context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (context) {
-        return Padding(
-          padding: const EdgeInsets.all(16.0),
+        return Container(
+          padding: const EdgeInsets.all(16),
+          height: 220,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          ),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(spot["name"], style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8),
-              Text("Location: ${spot["distance"]} away"),
-              Text("Price: ${spot["price"]}"),
-              const SizedBox(height: 16),
+              Text(
+                spot["name"],
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              Text("Price: ${spot["price"]}", style: const TextStyle(fontSize: 16)),
+              const Spacer(),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  backgroundColor: Colors.green,
+                  foregroundColor: Colors.white,
+                  minimumSize: const Size(double.infinity, 50),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                 ),
-                icon: const Icon(Icons.directions, color: Colors.white),
-                label: const Text("Navigate"),
-                onPressed: () {
-                  // Open navigation (Future implementation)
-                  Navigator.pop(context);
-                },
+                onPressed: () => _navigateToParking(spot["lat"], spot["lng"]),
+                icon: const Icon(Icons.navigation),
+                label: const Text("Navigate to this spot"),
               ),
             ],
           ),
         );
       },
     );
+  }
+
+  // Open Google Maps for navigation
+  void _navigateToParking(double lat, double lng) async {
+    final Uri googleMapsUri = Uri.parse("https://www.google.com/maps/dir/?api=1&destination=$lat,$lng");
+    if (await canLaunchUrl(googleMapsUri)) {
+      await launchUrl(googleMapsUri, mode: LaunchMode.externalApplication);
+    } else {
+      print("Could not launch Google Maps");
+    }
   }
 }

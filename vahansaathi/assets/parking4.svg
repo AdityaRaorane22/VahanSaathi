@@ -1,0 +1,25 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="400" height="400" fill="#f8f9fa"/>
+  
+  <!-- Receipt -->
+  <rect x="100" y="50" width="200" height="300" fill="white" stroke="#dee2e6" stroke-width="2"/>
+  
+  <!-- Receipt Content -->
+  <line x1="120" y1="100" x2="280" y2="100" stroke="#e9ecef" stroke-width="2"/>
+  <line x1="120" y1="140" x2="280" y2="140" stroke="#e9ecef" stroke-width="2"/>
+  <line x1="120" y1="180" x2="280" y2="180" stroke="#e9ecef" stroke-width="2"/>
+  
+  <!-- QR Code -->
+  <rect x="150" y="220" width="100" height="100" fill="#dee2e6"/>
+  <rect x="170" y="240" width="60" height="60" fill="white"/>
+  
+  <!-- Security Badge -->
+  <circle cx="300" cy="100" r="30" fill="#198754"/>
+  <path d="M290 100 L300 110 L320 90" stroke="white" stroke-width="3" fill="none"/>
+  
+  <!-- Payment Icons -->
+  <rect x="120" y="200" width="40" height="30" rx="5" fill="#0d6efd"/>
+  <rect x="170" y="200" width="40" height="30" rx="5" fill="#dc3545"/>
+  <rect x="220" y="200" width="40" height="30" rx="5" fill="#ffc107"/>
+</svg>

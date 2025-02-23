@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../components/queue_card.dart';
 import 'login_screen.dart';
 
@@ -13,22 +14,22 @@ class QueueScreen extends StatelessWidget {
           const QueueCard(
             title: "Find Nearby Parking",
             description: "Easily locate available parking spots within a 200m radius.",
-            imagePath: "assets/images/parking1.png",
+            imagePath: "assets/enhanced-parking1.svg",
           ),
           const QueueCard(
             title: "Offer Your Own Spot",
             description: "List your empty garage or society parking to earn rewards.",
-            imagePath: "assets/images/parking2.png",
+            imagePath: "assets/enhanced-parking2.svg",
           ),
           const QueueCard(
             title: "Earn Coins & Rewards",
             description: "Gamified experience! Earn points & use them for free parking.",
-            imagePath: "assets/images/parking3.png",
+            imagePath: "assets/enhanced-parking3.svg",
           ),
           const QueueCard(
             title: "Secure & Hassle-Free",
             description: "Digital receipts, legal handling, and seamless payments.",
-            imagePath: "assets/images/parking4.png",
+            imagePath: "assets/parking4.svg",
           ),
           // Last Screen with "Get Started" Button
           Container(
@@ -37,7 +38,7 @@ class QueueScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset("assets/images/app_logo.png", height: 150),
+                  SvgPicture.asset("assets/s1.svg", height: 150), // Change to an appropriate logo
                   const SizedBox(height: 20),
                   const Text(
                     "Welcome to VahanSaathi!",

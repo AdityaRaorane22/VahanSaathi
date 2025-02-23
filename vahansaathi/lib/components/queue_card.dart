@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class QueueCard extends StatelessWidget {
   final String title;
@@ -15,24 +16,22 @@ class QueueCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(16),
       color: Colors.white,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(imagePath, height: 250), // Parking-related images
+          SvgPicture.asset(imagePath, height: 200), // Display SVG images
           const SizedBox(height: 20),
           Text(
             title,
-            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 10),
           Text(
             description,
-            style: const TextStyle(fontSize: 16),
             textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16),
           ),
         ],
       ),

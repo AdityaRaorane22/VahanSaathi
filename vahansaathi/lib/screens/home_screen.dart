@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
                 style: TextStyle(color: Colors.white, fontSize: 24),
               ),
             ),
-            _buildDrawerItem(Icons.search, 'Find Parking Spot', context, const FindParkingSpotScreen()),
+            _buildDrawerItem(Icons.search, 'Find Parking Spot', context,  FindParkingSpotScreen()),
             //_buildDrawerItem(Icons.local_parking, 'Offer Parking Spot', context, const OfferParkingSpotScreen()),
             //_buildDrawerItem(Icons.history, 'Booking History', context, const BookingHistoryScreen()),
             //_buildDrawerItem(Icons.notifications, 'Notifications', context, const NotificationsScreen()),
