@@ -1,6 +1,9 @@
-// home_screen.dart
 import 'package:flutter/material.dart';
 import 'profile_screen.dart';
+import 'find_parking_spot.dart';
+//import 'offer_parking_spot.dart';
+//import 'booking_history.dart';
+//import 'notifications_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -29,41 +32,48 @@ class HomeScreen extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            DrawerHeader(
+            const DrawerHeader(
               decoration: BoxDecoration(color: Colors.green),
-              child: const Text(
+              child: Text(
                 'Menu',
                 style: TextStyle(color: Colors.white, fontSize: 24),
               ),
             ),
-            _buildDrawerItem(Icons.search, 'Find Parking Spot', context),
-            _buildDrawerItem(Icons.local_parking, 'Offer Parking Spot', context),
-            _buildDrawerItem(Icons.history, 'Booking History', context),
-            _buildDrawerItem(Icons.notifications, 'Notifications', context),
-            _buildDrawerItem(Icons.info, 'About Us', context),
-            ListTile(
-              leading: const Icon(Icons.logout, color: Colors.red),
-              title: const Text('Logout', style: TextStyle(color: Colors.red)),
-              onTap: () {
-                // Implement logout functionality
-              },
-            ),
+            _buildDrawerItem(Icons.search, 'Find Parking Spot', context, const FindParkingSpotScreen()),
+            //_buildDrawerItem(Icons.local_parking, 'Offer Parking Spot', context, const OfferParkingSpotScreen()),
+            //_buildDrawerItem(Icons.history, 'Booking History', context, const BookingHistoryScreen()),
+            //_buildDrawerItem(Icons.notifications, 'Notifications', context, const NotificationsScreen()),
+            
+            // Uncomment these when About Us & Logout are implemented
+            // _buildDrawerItem(Icons.info, 'About Us', context, const AboutUsScreen()),
+            // ListTile(
+            //   leading: const Icon(Icons.logout, color: Colors.red),
+            //   title: const Text('Logout', style: TextStyle(color: Colors.red)),
+            //   onTap: () {
+            //     // Implement logout functionality
+            //   },
+            // ),
           ],
         ),
       ),
       body: const Center(
-        child: Text('Welcome to VahanSaathi!',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        child: Text(
+          'Welcome to VahanSaathi!',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }
 
-  Widget _buildDrawerItem(IconData icon, String title, BuildContext context) {
+  Widget _buildDrawerItem(IconData icon, String title, BuildContext context, Widget screen) {
     return ListTile(
       leading: Icon(icon, color: Colors.green),
       title: Text(title),
       onTap: () {
-        // Navigate to respective screens
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => screen),
+        );
       },
     );
   }

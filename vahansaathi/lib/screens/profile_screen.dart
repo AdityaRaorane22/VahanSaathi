@@ -48,11 +48,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Card(
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
+      child: const Padding(
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Text('User Name: John Doe', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             SizedBox(height: 5),
             Text('Email: johndoe@example.com', style: TextStyle(fontSize: 16)),
@@ -75,7 +75,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             const Text('Register Your Vehicle', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'Vehicle Number Plate',
                 border: OutlineInputBorder(),
@@ -92,14 +92,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               hint: const Text('Select Vehicle Type'),
             ),
             const SizedBox(height: 10),
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'License Number',
                 border: OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 10),
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'Insurance Details',
                 border: OutlineInputBorder(),

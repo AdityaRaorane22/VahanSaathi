@@ -10,22 +10,22 @@ class QueueScreen extends StatelessWidget {
     return Scaffold(
       body: PageView(
         children: [
-          QueueCard(
+          const QueueCard(
             title: "Find Nearby Parking",
             description: "Easily locate available parking spots within a 200m radius.",
             imagePath: "assets/images/parking1.png",
           ),
-          QueueCard(
+          const QueueCard(
             title: "Offer Your Own Spot",
             description: "List your empty garage or society parking to earn rewards.",
             imagePath: "assets/images/parking2.png",
           ),
-          QueueCard(
+          const QueueCard(
             title: "Earn Coins & Rewards",
             description: "Gamified experience! Earn points & use them for free parking.",
             imagePath: "assets/images/parking3.png",
           ),
-          QueueCard(
+          const QueueCard(
             title: "Secure & Hassle-Free",
             description: "Digital receipts, legal handling, and seamless payments.",
             imagePath: "assets/images/parking4.png",
